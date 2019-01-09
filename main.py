@@ -7,7 +7,6 @@ import STATICS
 from commands import cmd_verify, cmd_help
 
 client = discord.Client()
-os.chdir(r'E:\Stuff\Desktop\Everything\Coding\Current\Discord Bots\Alfie\VerifyMe')
 
 commands = {
 
