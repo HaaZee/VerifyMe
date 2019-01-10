@@ -8,6 +8,7 @@ from discord.utils import get
 
 async def ex(args, message, client, invoke):
     verified_role = "Verified"
+    author = message.author
     if verified_role.lower() not in [y.name.lower() for y in author.roles]:
 
         report_embed = discord.Embed(title="VerifyMe:" , color=discord.Color.green())
@@ -16,8 +17,6 @@ async def ex(args, message, client, invoke):
         report_embed.set_footer(text="NOTE: All profile settings must be set to public.")
 
         await client.send_message(message.author, embed=report_embed)
-
-        author = message.author
 
         message = await client.wait_for_message(author=author)
 
