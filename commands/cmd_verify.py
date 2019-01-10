@@ -58,6 +58,9 @@ async def ex(args, message, client, invoke):
                                     print(name)
 
                         if str(verif_code) in name:
+                            await client.send_message(message.author, embed=discord.Embed(color=discord.Color.orange(), description="Checking..."))
+
+                            await asyncio.sleep(15)
 
                             await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="You are now verified. Have fun playing!"))
                             await client.add_roles(author, verified)
