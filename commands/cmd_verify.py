@@ -39,7 +39,6 @@ async def ex(args, message, client, invoke):
             game_time = round(game_time, 1)
 
             verified = get(author.server.roles, name="Verified")
-            unverified = get(author.server.roles, name="Unverified")
             verified_role = "Verified"
             verif_code = random.randint(1000000, 9000000)
 
