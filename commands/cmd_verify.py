@@ -27,10 +27,10 @@ async def ex(args, message, client, invoke):
             await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="Your verification request has gone through, you will be verified shortly."))
 
             url =  "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=721E1DBC94F54A914E9B0AE1250B1C5D&steamid={}&format=json".format(steamid)
-            username_url =  "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=721E1DBC94F54A914E9B0AE1250B1C5D&steamids=76561198291339880&format=json"
+            username_url =  "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=721E1DBC94F54A914E9B0AE1250B1C5D&steamids={}&format=json".format(steamid)
 
             r = requests.get(url)
-            r_user = requests.get(url)
+            r_user = requests.get(username_url)
 
             for game in r.json()['response']['games']:
                 if game['appid'] == 433850:
@@ -51,13 +51,10 @@ async def ex(args, message, client, invoke):
                     message = await client.wait_for_message(author=author)
                     if message.content.lower() == "done":
 
-                        # for item in r_user.json()['response']['players']:
-                        #     for value in item:
-                        #         if value == "personaname":
-                        #             name = item[value]
-
-                        for item in r_user.json():
-                            print(item)
+                        for item in r_user.json()['response']['players']:
+                            for value in item:
+                                if value == "personaname":
+                                    name = item[value]
 
                         if verif_code in name:
 
