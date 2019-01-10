@@ -55,6 +55,7 @@ async def ex(args, message, client, invoke):
                             for value in item:
                                 if value == "personaname":
                                     name = item[value]
+                                    print(name)
 
                         if str(verif_code) in name:
 
