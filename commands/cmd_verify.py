@@ -20,7 +20,7 @@ async def ex(args, message, client, invoke):
 
     if message.server is None and message.author != client.user:
 
-        steamid = message.content
+        steamid = int(message.content)
 
         if steamid.isdigit() and len(steamid) == 17:
 
