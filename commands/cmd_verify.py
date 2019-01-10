@@ -56,7 +56,7 @@ async def ex(args, message, client, invoke):
                                 if value == "personaname":
                                     name = item[value]
 
-                        if verif_code in name:
+                        if str(verif_code) in name:
 
                             await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), description="You are now verified. Have fun playing!"))
                             await client.add_roles(author, verified)
