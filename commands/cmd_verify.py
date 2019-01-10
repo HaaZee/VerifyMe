@@ -58,18 +58,18 @@ async def ex(args, message, client, invoke):
 
                         if str(verif_code) in name:
 
-                            await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), description="You are now verified. Have fun playing!"))
+                            await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="You are now verified. Have fun playing!"))
                             await client.add_roles(author, verified)
                     else:
-                        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(), description="Must reply with 'done'.\n *Verification closed, please retype the command in RevengeEU*"))
+                        await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Must reply with 'done'.\n *Verification closed, please retype the command in RevengeEU*"))
 
 
                 else:
-                    await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(), description="Sorry, your verifcation request was not approved. You will not be able to play RevengeEU scrims."))
+                    await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Sorry, your verifcation request was not approved. You will not be able to play RevengeEU scrims."))
                     await client.add_roles(author, unverified)
 
             else:
-                await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(), description="You are already verified."))
+                await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="You are already verified."))
 
         else:
-            await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(), description="Must be STEAM64 ID.\n *Verification closed, please retype the command in RevengeEU*"))
+            await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Must be STEAM64 ID.\n *Verification closed, please retype the command in RevengeEU*"))
