@@ -24,13 +24,12 @@ async def ex(args, message, client, invoke):
 
         if steamid.isdigit() and len(steamid) == 17:
 
-            await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="Your verification request has gone through, you will be verified shortly."))
+            await client.send_message(message.author, embed=discord.Embed(color=discord.Color.orange(), description="Your verification request has gone through, you will be verified shortly."))
 
             url =  "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=721E1DBC94F54A914E9B0AE1250B1C5D&steamid={}&format=json".format(steamid)
             username_url =  "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=721E1DBC94F54A914E9B0AE1250B1C5D&steamids={}&format=json".format(steamid)
 
             r = requests.get(url)
-            r_user = requests.get(username_url)
 
             for game in r.json()['response']['games']:
                 if game['appid'] == 433850:
@@ -47,9 +46,10 @@ async def ex(args, message, client, invoke):
             if verified_role.lower() not in [y.name.lower() for y in author.roles]:
 
                 if game_time > 10:
-                    await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="To confirm the authenticity of this account, please add this verification code to your steam name: **{}**\n*Please reply to this message with 'done' once you have completed the task.*".format(verif_code)))
+                    await client.send_message(message.author, embed=discord.Embed(color=discord.Color.orange(), description="To confirm the authenticity of this account, please add this verification code to your steam name: **{}**\n*Please reply to this message with 'done' once you have completed the task.*".format(verif_code)))
                     message = await client.wait_for_message(author=author)
                     if message.content.lower() == "done":
+                        r_user = requests.get(username_url)
 
                         for item in r_user.json()['response']['players']:
                             for value in item:
