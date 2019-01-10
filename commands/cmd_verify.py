@@ -51,10 +51,13 @@ async def ex(args, message, client, invoke):
                     message = await client.wait_for_message(author=author)
                     if message.content.lower() == "done":
 
-                        for item in r_user.json()['response']['players']:
-                            for value in item:
-                                if value == "personaname":
-                                    name = item[value]
+                        #['response']['players']
+                        #for value in item:
+                        #   if value == "personaname":
+                        #       name = item[value]
+                        for item in r_user.json():
+                            print(item)
+
 
                         if verif_code in name:
 
