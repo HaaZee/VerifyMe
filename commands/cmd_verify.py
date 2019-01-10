@@ -20,7 +20,7 @@ async def ex(args, message, client, invoke):
 
     if message.server is None and message.author != client.user:
 
-        steamid = int(message.content)
+        steamid = message.content
 
         if steamid.isdigit() and len(steamid) == 17:
 
@@ -50,7 +50,6 @@ async def ex(args, message, client, invoke):
                     await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="To confirm the authenticity of this account, please add this verification code to your steam name: **{}**\n*Please reply to this message with 'done' once you have completed the task.*".format(verif_code)))
                     message = await client.wait_for_message(author=author)
                     if message.content.lower() == "done":
-
 
                         for item in r_user.json()['response']['players']:
                             for value in item:
