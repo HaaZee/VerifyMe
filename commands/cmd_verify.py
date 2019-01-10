@@ -27,7 +27,7 @@ async def ex(args, message, client, invoke):
             await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="Your verification request has gone through, you will be verified shortly."))
 
             url =  "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=721E1DBC94F54A914E9B0AE1250B1C5D&steamid={}&format=json".format(steamid)
-            username_url =  "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=721E1DBC94F54A914E9B0AE1250B1C5D&steamids={}&format=json".format(int(steamid))
+            username_url =  "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=721E1DBC94F54A914E9B0AE1250B1C5D&steamids=76561198291339880&format=json"
 
             r = requests.get(url)
             r_user = requests.get(url)
