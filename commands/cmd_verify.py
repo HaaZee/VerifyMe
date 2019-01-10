@@ -49,15 +49,23 @@ async def ex(args, message, client, invoke):
                 if verified_role.lower() not in [y.name.lower() for y in author.roles]:
 
                     if game_time > 100:
-                        for item in r_user.json()['response']['players']:
-                            for value in item:
-                                if value == "personaname":
-                                    name = item[value]
+                        await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="To confirm the authenticity of this account, please add this verification code to your steam name: **{}**\n*Please reply to this message with 'done' once you have completed the task.*".format(verif_code)))
+                        message = await client.wait_for_message(author=author)
+                        if message.content.lower() == "done":
 
-                        if verif_code in name:
 
-                            await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), description="You are now verified. Have fun playing!"))
-                            await client.add_roles(author, verified)
+                            for item in r_user.json()['response']['players']:
+                                for value in item:
+                                    if value == "personaname":
+                                        name = item[value]
+
+                            if verif_code in name:
+
+                                await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), description="You are now verified. Have fun playing!"))
+                                await client.add_roles(author, verified)
+                        else:
+                            await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(), description="Must reply with 'done'.\n *Verification closed, please retype the command in RevengeEU*"))
+
 
                     else:
                         await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(), description="Sorry, your verifcation request was not approved. You will not be able to play RevengeEU scrims."))
