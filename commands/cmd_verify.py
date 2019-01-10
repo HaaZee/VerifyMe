@@ -43,40 +43,36 @@ async def ex(args, message, client, invoke):
             verified_role = "Verified"
             verif_code = random.randint(1000000, 9000000)
 
-            end_time = time.time() + 60
+            if verified_role.lower() not in [y.name.lower() for y in author.roles]:
 
-            while time.time() < end_time:
-                if verified_role.lower() not in [y.name.lower() for y in author.roles]:
+                if game_time > 50:
+                    await client.send_message(message.author, embed=discord.Embed(color=discord.Color.orange(), description="To confirm the authenticity of this account, please add this verification code to your steam name: **{}**\n*Please reply to this message with 'done' once you have completed the task.*".format(verif_code)))
+                    message = await client.wait_for_message(author=author)
+                    if message.content.lower() == "done":
+                        r_user = requests.get(username_url)
 
-                    if game_time > 50:
-                        await client.send_message(message.author, embed=discord.Embed(color=discord.Color.orange(), description="To confirm the authenticity of this account, please add this verification code to your steam name: **{}**\n*Please reply to this message with 'done' once you have completed the task.*".format(verif_code)))
-                        message = await client.wait_for_message(author=author)
-                        if message.content.lower() == "done":
-                            r_user = requests.get(username_url)
+                        for item in r_user.json()['response']['players']:
+                            for value in item:
+                                if value == "personaname":
+                                    name = item[value]
 
-                            for item in r_user.json()['response']['players']:
-                                for value in item:
-                                    if value == "personaname":
-                                        name = item[value]
+                        await client.send_message(message.author, embed=discord.Embed(color=discord.Color.orange(), description="Checking..."))
+                        await asyncio.sleep(10)
+                        if str(verif_code) in name:
 
-                            await client.send_message(message.author, embed=discord.Embed(color=discord.Color.orange(), description="Checking..."))
-                            await asyncio.sleep(10)
-                            if str(verif_code) in name:
-
-                                await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="You are now verified. Have fun playing!"))
-                                await client.add_roles(author, verified)
-
-                            else:
-                                await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Sorry, your verifcation request was not approved. You will not be able to play RevengeEU scrims."))
+                            await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="You are now verified. Have fun playing!"))
+                            await client.add_roles(author, verified)
 
                         else:
-                            await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Must reply with 'done'.\n *Verification closed, please retype the command in RevengeEU*"))
-
+                            await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Sorry, your verifcation request was not approved. You will not be able to play RevengeEU scrims."))
 
                     else:
-                        await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Sorry, your verifcation request was not approved. You will not be able to play RevengeEU scrims."))
+                        await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Must reply with 'done'.\n *Verification closed, please retype the command in RevengeEU*"))
 
-                    await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Verification code no longer valid."))
+
+                else:
+                    await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Sorry, your verifcation request was not approved. You will not be able to play RevengeEU scrims."))
+
 
             else:
                 await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="You are already verified."))
