@@ -60,6 +60,11 @@ async def ex(args, message, client, invoke):
 
                             await client.send_message(message.author, embed=discord.Embed(color=discord.Color.green(), description="You are now verified. Have fun playing!"))
                             await client.add_roles(author, verified)
+
+                        else:
+                            await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Sorry, your verifcation request was not approved. You will not be able to play RevengeEU scrims."))
+                            await client.add_roles(author, unverified)
+
                     else:
                         await client.send_message(message.author, embed=discord.Embed(color=discord.Color.red(), description="Must reply with 'done'.\n *Verification closed, please retype the command in RevengeEU*"))
 
