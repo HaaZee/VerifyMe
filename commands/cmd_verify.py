@@ -7,7 +7,7 @@ import time
 from discord.utils import get
 
 async def ex(args, message, client, invoke):
-    verified_role = "Verified"
+    verified_role = "verified"
     author = message.author
     if verified_role.lower() not in [y.name.lower() for y in author.roles]:
 
