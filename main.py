@@ -30,7 +30,7 @@ async def on_message(message):
             args = message.content.split(" ")[1:]
             if commands.__contains__(invoke):
                 await commands.get(invoke).ex(args, message, client, invoke)
-            else:
-                await client.send_message(message.channel, embed=Embed(color=discord.Color.red(), description=("The command `%s` is not valid!" % invoke)))
+#             else:
+#                 await client.send_message(message.channel, embed=Embed(color=discord.Color.red(), description=("The command `%s` is not valid!" % invoke)))
 
 client.run(os.environ['TOKEN'])
