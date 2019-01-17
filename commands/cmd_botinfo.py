@@ -4,7 +4,7 @@ import asyncio
 async def ex(args, message, client, invoke):
 
     members = len(set(client.get_all_members()))
-    servers = len(set(client.servers()))
+    servers = len(client.servers)
 
     embed = discord.Embed(title="Bot info:", description="", color=0x00ff00)
     embed.add_field(name="Name:", value="VerifyMe", inline=True)
