@@ -3,6 +3,7 @@ import asyncio
 
 async def ex(args, message, client, invoke):
 
+    time = str(client.user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'))
     members = len(set(client.get_all_members()))
     servers = len(client.servers)
 
