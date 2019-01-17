@@ -4,7 +4,7 @@ import subprocess
 import json
 import os
 import STATICS
-from commands import cmd_botinfo cmd_verify, cmd_help
+from commands import cmd_botinfo, cmd_verify, cmd_help
 
 client = discord.Client()
 
